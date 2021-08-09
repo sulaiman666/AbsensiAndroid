@@ -31,8 +31,6 @@ public class Absen {
 	private String tanggalMasuk;
 	@Column(length = 100)
 	private String tanggalKeluar;
-	private int jamMasuk;
-	private int jamKeluar;
 	@Column(length = 200)
 	private String GPS;
 }

@@ -12,6 +12,8 @@ import com.solo.ujianAndroidAbsensi.repository.AbsenRepository;
 public class AbsenServices implements AbsenServiceInterface{
 	@Autowired
 	AbsenRepository absenRepo;
+	String[] tanggalMasuk;
+	String[] tanggalKeluar;
 	
 	
 	@Override
@@ -25,33 +27,32 @@ public class AbsenServices implements AbsenServiceInterface{
 	public String absen(Absen absen) {
 		// TODO Auto-generated method stub
 		if(absen.getTanggalMasuk() != null) {
+			tanggalMasuk = absen.getTanggalMasuk().split(" ");
 			if(this.absenRepo.getByUsernameAndDateIn(
-					absen.getUsername(), absen.getTanggalMasuk()
+					absen.getUsername(), tanggalMasuk[0]
 					) == null) {
 				this.absenRepo.save(absen);
 				return "Check In berhasil dilakukan";
 			}
 			return "Anda Sudah Check In";
 		} else if(absen.getTanggalKeluar() != null) {
+			tanggalKeluar = absen.getTanggalKeluar().split(" ");
 			if (this.absenRepo.getByUsernameAndDateOut(
-					absen.getUsername(), absen.getTanggalKeluar()
+					absen.getUsername(), tanggalKeluar[0]
 					) == null) {
 				Absen absenTemp = this.absenRepo
 						.getByUsernameAndDateIn(
 								absen.getUsername(), 
-								absen.getTanggalKeluar());
+								tanggalKeluar[0]);
 				if(absenTemp != null) {
 					absen.setId(absenTemp.getId());
 					absen.setTanggalMasuk(absenTemp.getTanggalMasuk());
-					absen.setJamMasuk(absenTemp.getJamMasuk());;
 					absen.setFotoMasuk(absenTemp.getFotoMasuk());
-					
 					this.absenRepo.save(absen);
 					return "Check Out berhasil dilakukan";
 				} else {
 					absen.setTanggalMasuk(absen.getTanggalKeluar());
 					absen.setFotoMasuk(absen.getFotoKeluar());
-					absen.setJamMasuk(absen.getJamKeluar());
 					
 					absen.setTanggalKeluar(null);
 					absen.setFotoKeluar(null);

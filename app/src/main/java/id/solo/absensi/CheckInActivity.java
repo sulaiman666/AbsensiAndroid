@@ -81,7 +81,6 @@ public class CheckInActivity extends AppCompatActivity {
 
         absen.setUsername(textUsername);
         absen.setTanggalMasuk(getTanggal());
-        absen.setJamMasuk(getJam());
         absen.setGPS(locationText);
 
         Gson gson = new Gson();
@@ -143,10 +142,12 @@ public class CheckInActivity extends AppCompatActivity {
     }
 
     private String getTanggal() {
-        Date c = Calendar.getInstance().getTime();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter =
+                new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-        return df.format(c);
+        Date date = new Date();
+
+        return formatter.format(date);
     }
 
     private void varInit() {

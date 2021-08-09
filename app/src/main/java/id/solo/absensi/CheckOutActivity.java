@@ -71,6 +71,7 @@ public class CheckOutActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
+            assert data != null;
             mediaPath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH);
             imgLogin.setImageBitmap(BitmapFactory.decodeFile(mediaPath));
         }
@@ -81,7 +82,6 @@ public class CheckOutActivity extends AppCompatActivity {
 
         absen.setUsername(textUsername);
         absen.setTanggalKeluar(getTanggal());
-        absen.setJamKeluar(getJam());
         absen.setGPS(locationText);
 
         Gson gson = new Gson();
@@ -143,10 +143,12 @@ public class CheckOutActivity extends AppCompatActivity {
     }
 
     private String getTanggal() {
-        Date c = Calendar.getInstance().getTime();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter =
+                new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-        return df.format(c);
+        Date date = new Date();
+
+        return formatter.format(date);
     }
 
     private void varInit() {

@@ -15,10 +15,6 @@ public class Absensi {
     private String tanggalMasuk;
     @SerializedName("tanggalKeluar")
     private String tanggalKeluar;
-    @SerializedName("jamMasuk")
-    private int jamMasuk;
-    @SerializedName("jamKeluar")
-    private int jamKeluar;
     @SerializedName("GPS")
     private String GPS;
 
@@ -29,8 +25,6 @@ public class Absensi {
         this.fotoKeluar = fotoKeluar;
         this.tanggalMasuk = tanggalMasuk;
         this.tanggalKeluar = tanggalKeluar;
-        this.jamMasuk = jamMasuk;
-        this.jamKeluar = jamKeluar;
         this.GPS = GPS;
     }
 
@@ -83,22 +77,6 @@ public class Absensi {
 
     public void setTanggalKeluar(String tanggalKeluar) {
         this.tanggalKeluar = tanggalKeluar;
-    }
-
-    public int getJamMasuk() {
-        return jamMasuk;
-    }
-
-    public void setJamMasuk(int jamMasuk) {
-        this.jamMasuk = jamMasuk;
-    }
-
-    public int getJamKeluar() {
-        return jamKeluar;
-    }
-
-    public void setJamKeluar(int jamKeluar) {
-        this.jamKeluar = jamKeluar;
     }
 
     public String getGPS() {

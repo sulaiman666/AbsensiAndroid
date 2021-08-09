@@ -1,5 +1,6 @@
 package id.solo.absensi.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,16 +34,26 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.AbsenVie
         return new AbsenViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.AbsenViewHolder holder, int position) {
         if (position % 2 == 0) {
             holder.itemRow.setBackgroundColor(ResourcesCompat.getColor(context.getResources(),
                     R.color.gray, null));
         }
-        holder.tvTanggal.setText(dataAbsen.get(position).getTanggalMasuk());
-        holder.tvMasuk.setText(getJam(dataAbsen.get(position).getJamMasuk()));
-        holder.tvPulang.setText(getJam(dataAbsen.get(position).getJamKeluar()));
-        holder.tvLembur.setText(Integer.toString(getLembur(dataAbsen.get(position).getJamMasuk(), dataAbsen.get(position).getJamKeluar())));
+
+        if (dataAbsen.get(position).getTanggalMasuk() != null)
+            holder.tvTanggal.setText(getTanggal(dataAbsen.get(position).getTanggalMasuk()));
+        else holder.tvTanggal.setText(getTanggal(dataAbsen.get(position).getTanggalKeluar()));
+
+        holder.tvMasuk.setText(getJam(String.valueOf(dataAbsen.get(position).getTanggalMasuk())));
+        holder.tvPulang.setText(getJam(String.valueOf(dataAbsen.get(position).getTanggalKeluar())));
+
+        if (dataAbsen.get(position).getTanggalKeluar() != null
+                && dataAbsen.get(position).getTanggalMasuk() != null)
+            holder.tvLembur.setText(String.valueOf(getLembur(getJam(dataAbsen.get(position).getTanggalMasuk()),
+                    getJam(dataAbsen.get(position).getTanggalKeluar()))));
+        else holder.tvLembur.setText(R.string.tanda);
     }
 
     @Override
@@ -63,19 +74,32 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.AbsenVie
         }
     }
 
-    private int getLembur(int jamMasuk, int jamKeluar) {
-        int menitMasuk = (jamMasuk / 100) * 60 + (jamMasuk % 100);
-        int menitPulang = (jamKeluar / 100) * 60 + (jamKeluar % 100);
-
-        return (menitPulang - menitMasuk) / 60;
+    private String getTanggal(String tanggal) {
+        String[] split = tanggal.split(" ");
+        return split[0];
     }
 
-    private String getJam(int jam) {
-        int hours = jam / 100;
-        int minute = jam % 100;
-        if (hours < 10 && minute < 10) return "0" + hours + ":" + "0" + minute;
-        else if (hours < 10) return "0" + hours + ":" + minute;
-        else if (minute < 10) return hours + ":" + minute;
-        else return hours + ":" + minute;
+    private String getJam(String tanggal) {
+        if (tanggal != "null") {
+            String[] split = tanggal.split(" ");
+            return split[1];
+        }
+        else return "0";
     }
+
+    private int getLembur(String jamMasuk, String jamKeluar) {
+        String[] splitJamMasuk = jamMasuk.split(":");
+        String[] splitJamKeluar = jamKeluar.split(":");
+
+        int menitMasuk = Integer.parseInt(String.valueOf(splitJamMasuk[0])) * 60
+                + Integer.parseInt(String.valueOf(splitJamMasuk[1]));
+        int menitPulang = Integer.parseInt(String.valueOf(splitJamKeluar[0])) * 60
+                + Integer.parseInt(String.valueOf(splitJamKeluar[1]));
+
+        int hasil = (menitPulang - menitMasuk) / 60;
+
+        return hasil;
+    }
+
+
 }

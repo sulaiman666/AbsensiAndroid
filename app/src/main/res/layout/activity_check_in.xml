@@ -19,10 +19,30 @@
 
     <ImageView
         android:id="@+id/img_login"
-        android:layout_width="350dp"
-        android:layout_height="350dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_gravity="center"
         android:src="@drawable/ic_launcher_foreground" />
+
+    <TextView
+        android:id="@+id/tv_success"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="8dp"
+        android:textSize="20sp"
+        android:visibility="gone"
+        tools:text="Login Berhasil" />
+
+    <TextView
+        android:id="@+id/tv_gps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="8dp"
+        android:textSize="20sp"
+        android:visibility="gone"
+        tools:text="Latitude longtitude" />
 
     <Button
         android:id="@+id/btn_foto"

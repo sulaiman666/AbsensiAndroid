@@ -13,28 +13,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text = "username"
-        android:gravity="center"/>
+        android:textSize="24sp"
+        android:layout_margin="8dp"
+        android:gravity="center" />
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:gravity="center">
         <TableRow>
             <TextView
                 android:text="Tanggal"
                 android:padding="3dp"
-                android:layout_weight="1"/>
+                android:layout_width="102dp"/>
             <TextView
                 android:text="Masuk"
                 android:padding="3dp"
-                android:layout_weight="1"/>
+                android:layout_width="102dp"/>
             <TextView
                 android:text="Pulang"
                 android:padding="3dp"
-                android:layout_weight="1"/>
+                android:layout_width="102dp"/>
             <TextView
                 android:text="Lembur"
                 android:padding="3dp"
-                android:layout_weight="1" />
+                android:layout_width="102dp" />
         </TableRow>
     </TableLayout>
 

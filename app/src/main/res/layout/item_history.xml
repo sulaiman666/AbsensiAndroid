@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center">
     <TableRow
         android:id="@+id/item_row">
         <TextView
             android:id="@+id/tv_tanggal"
             tools:text="tanggal"
             android:padding="3dp"
-            android:layout_weight="1"/>
+            android:layout_width="102dp"/>
         <TextView
             android:id="@+id/tv_masuk"
             tools:text="masuk"
             android:padding="3dp"
-            android:layout_weight="1"/>
+            android:layout_width="102dp"/>
         <TextView
             android:id="@+id/tv_pulang"
             tools:text="pulang"
             android:padding="3dp"
-            android:layout_weight="1"/>
+            android:layout_width="102dp"/>
         <TextView
             android:id="@+id/tv_lembur"
             tools:text="lembur"
             android:padding="3dp"
-            android:layout_weight="1"/>
+            android:layout_width="102dp"/>
     </TableRow>
-
 </TableLayout>

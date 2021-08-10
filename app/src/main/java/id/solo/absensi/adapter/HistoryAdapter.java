@@ -50,7 +50,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.AbsenVie
         holder.tvPulang.setText(getJam(String.valueOf(dataAbsen.get(position).getTanggalKeluar())));
 
         if (dataAbsen.get(position).getTanggalKeluar() != null
-                && dataAbsen.get(position).getTanggalMasuk() != null)
+                && dataAbsen.get(position).getTanggalMasuk() != null
+                && getLembur(getJam(dataAbsen.get(position).getTanggalMasuk()),
+                getJam(dataAbsen.get(position).getTanggalKeluar())) > 0)
             holder.tvLembur.setText(String.valueOf(getLembur(getJam(dataAbsen.get(position).getTanggalMasuk()),
                     getJam(dataAbsen.get(position).getTanggalKeluar()))));
         else holder.tvLembur.setText(R.string.tanda);
@@ -96,7 +98,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.AbsenVie
         int menitPulang = Integer.parseInt(String.valueOf(splitJamKeluar[0])) * 60
                 + Integer.parseInt(String.valueOf(splitJamKeluar[1]));
 
-        int hasil = (menitPulang - menitMasuk) / 60;
+        int hasil = (menitPulang - menitMasuk) / 60 - 10;
 
         return hasil;
     }

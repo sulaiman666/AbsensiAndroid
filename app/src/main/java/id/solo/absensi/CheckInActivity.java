@@ -39,7 +39,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CheckInActivity extends AppCompatActivity {
-    Button btnFoto, btnSubmitFoto;
+    Button btnFoto;
+//            btnSubmitFoto;
     TextView tvGPS, tvSuccess;
     ImageView imgLogin;
     String mediaPath = "", textUsername;
@@ -58,18 +59,25 @@ public class CheckInActivity extends AppCompatActivity {
         textUsername = getIntent().getStringExtra("username");
 
         btnFoto.setOnClickListener(v -> {
-            Intent gambar = new Intent(CheckInActivity.this, ImageSelectActivity.class);
-            gambar.putExtra(ImageSelectActivity.FLAG_COMPRESS, true);
-            gambar.putExtra(ImageSelectActivity.FLAG_CAMERA, true);
-            gambar.putExtra(ImageSelectActivity.FLAG_GALLERY, true);
-            startActivityForResult(gambar, 1);
+            if (mediaPath.isEmpty()) {
+                Intent gambar = new Intent(CheckInActivity.this, ImageSelectActivity.class);
+                gambar.putExtra(ImageSelectActivity.FLAG_COMPRESS, true);
+                gambar.putExtra(ImageSelectActivity.FLAG_CAMERA, true);
+                gambar.putExtra(ImageSelectActivity.FLAG_GALLERY, true);
+                startActivityForResult(gambar, 1);
+            } else uploadAbsen();
+//            Intent gambar = new Intent(CheckInActivity.this, ImageSelectActivity.class);
+//            gambar.putExtra(ImageSelectActivity.FLAG_COMPRESS, true);
+//            gambar.putExtra(ImageSelectActivity.FLAG_CAMERA, true);
+//            gambar.putExtra(ImageSelectActivity.FLAG_GALLERY, true);
+//            startActivityForResult(gambar, 1);
         });
 
-        btnSubmitFoto.setOnClickListener(v -> {
-            if (mediaPath.isEmpty()) {
-                Toast.makeText(CheckInActivity.this, "Ambil foto terlebih dahulu", Toast.LENGTH_LONG).show();
-            } else uploadAbsen();
-        });
+//        btnSubmitFoto.setOnClickListener(v -> {
+//            if (mediaPath.isEmpty()) {
+//                Toast.makeText(CheckInActivity.this, "Ambil foto terlebih dahulu", Toast.LENGTH_LONG).show();
+//            } else uploadAbsen();
+//        });
     }
 
     @SuppressLint({"UseCompatLoadingForDrawables", "SetTextI18n"})
@@ -77,6 +85,7 @@ public class CheckInActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
+            btnFoto.setText("Submit Foto Checkin");
             mediaPath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH);
             //imgLogin.setImageBitmap(BitmapFactory.decodeFile(mediaPath));
             imgLogin.setImageDrawable(getResources().getDrawable(R.drawable.checklist));
@@ -85,7 +94,7 @@ public class CheckInActivity extends AppCompatActivity {
             tvGPS.setText("Geotag: " + locationText);
             tvGPS.setVisibility(View.VISIBLE);
         } else {
-            //coba lg
+            btnFoto.setText("Re-Scan foto checkin");
             imgLogin.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_warning_24));
             tvSuccess.setText("Foto belum masuk, coba lagi");
             tvSuccess.setVisibility(View.VISIBLE);
@@ -117,7 +126,7 @@ public class CheckInActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    Toast.makeText(CheckInActivity.this, (getJam() / 100) + ":" + String.valueOf(getJam() % 100) + " " + response.body().string(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(CheckInActivity.this, response.body().string(), Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -131,12 +140,12 @@ public class CheckInActivity extends AppCompatActivity {
         });
     }
 
-    private int getJam() {
-        Calendar calendar = Calendar.getInstance();
-        int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);
-        int minutes = calendar.get(Calendar.MINUTE);
-        return (hour24hrs * 100) + minutes;
-    }
+//    private int getJam() {
+//        Calendar calendar = Calendar.getInstance();
+//        int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);
+//        int minutes = calendar.get(Calendar.MINUTE);
+//        return (hour24hrs * 100) + minutes;
+//    }
 
     @SuppressLint("MissingPermission")
     private String getLocation() {
@@ -168,7 +177,7 @@ public class CheckInActivity extends AppCompatActivity {
 
     private void varInit() {
         btnFoto = findViewById(R.id.btn_foto);
-        btnSubmitFoto = findViewById(R.id.btn_submit_foto);
+//        btnSubmitFoto = findViewById(R.id.btn_submit_foto);
         imgLogin = findViewById(R.id.img_login);
         tvGPS = findViewById(R.id.tv_gps);
         tvSuccess = findViewById(R.id.tv_success);

@@ -39,10 +39,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CheckOutActivity extends AppCompatActivity {
-    Button btnFoto, btnSubmitFoto;
+    Button btnFoto;
+//            btnSubmitFoto;
     TextView tvGPS, tvSuccess;
     ImageView imgLogin;
-    String mediaPath, textUsername;
+    String mediaPath = "", textUsername;
     String locationText = "0";
     FusedLocationProviderClient mFusedLocationProviderClient;
 
@@ -58,16 +59,23 @@ public class CheckOutActivity extends AppCompatActivity {
         textUsername = getIntent().getStringExtra("username");
 
         btnFoto.setOnClickListener(v -> {
-            Intent gambar = new Intent(CheckOutActivity.this, ImageSelectActivity.class);
-            gambar.putExtra(ImageSelectActivity.FLAG_COMPRESS, true);
-            gambar.putExtra(ImageSelectActivity.FLAG_CAMERA, true);
-            gambar.putExtra(ImageSelectActivity.FLAG_GALLERY, true);
-            startActivityForResult(gambar, 1);
+            if (mediaPath.isEmpty()) {
+                Intent gambar = new Intent(CheckOutActivity.this, ImageSelectActivity.class);
+                gambar.putExtra(ImageSelectActivity.FLAG_COMPRESS, true);
+                gambar.putExtra(ImageSelectActivity.FLAG_CAMERA, true);
+                gambar.putExtra(ImageSelectActivity.FLAG_GALLERY, true);
+                startActivityForResult(gambar, 1);
+            } else uploadAbsen();
+//            Intent gambar = new Intent(CheckOutActivity.this, ImageSelectActivity.class);
+//            gambar.putExtra(ImageSelectActivity.FLAG_COMPRESS, true);
+//            gambar.putExtra(ImageSelectActivity.FLAG_CAMERA, true);
+//            gambar.putExtra(ImageSelectActivity.FLAG_GALLERY, true);
+//            startActivityForResult(gambar, 1);
         });
 
-        btnSubmitFoto.setOnClickListener(v -> {
-            uploadAbsen();
-        });
+//        btnSubmitFoto.setOnClickListener(v -> {
+//            uploadAbsen();
+//        });
     }
 
     @SuppressLint({"UseCompatLoadingForDrawables", "SetTextI18n"})
@@ -115,7 +123,7 @@ public class CheckOutActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    Toast.makeText(CheckOutActivity.this, String.valueOf(getJam() / 100) + ":" + String.valueOf(getJam() % 100) + " " + response.body().string(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(CheckOutActivity.this, response.body().string(), Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -129,12 +137,12 @@ public class CheckOutActivity extends AppCompatActivity {
         });
     }
 
-    private int getJam() {
-        Calendar calendar = Calendar.getInstance();
-        int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);
-        int minutes = calendar.get(Calendar.MINUTE);
-        return (hour24hrs * 100) + minutes;
-    }
+//    private int getJam() {
+//        Calendar calendar = Calendar.getInstance();
+//        int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);
+//        int minutes = calendar.get(Calendar.MINUTE);
+//        return (hour24hrs * 100) + minutes;
+//    }
 
     @SuppressLint("MissingPermission")
     private String getLocation() {
@@ -166,7 +174,7 @@ public class CheckOutActivity extends AppCompatActivity {
 
     private void varInit() {
         btnFoto = findViewById(R.id.btn_foto);
-        btnSubmitFoto = findViewById(R.id.btn_submit_foto);
+//        btnSubmitFoto = findViewById(R.id.btn_submit_foto);
         imgLogin = findViewById(R.id.img_login);
         tvGPS = findViewById(R.id.tv_gps);
         tvSuccess = findViewById(R.id.tv_success);

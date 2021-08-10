@@ -51,11 +51,11 @@
         android:text="Foto Selfie Check In"
         android:layout_margin="8dp"/>
 
-    <Button
-        android:id="@+id/btn_submit_foto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Submit Foto Check In"
-        android:layout_margin="8dp"/>
-
 </LinearLayout>
+
+<!--<Button-->
+<!--android:id="@+id/btn_submit_foto"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:text="Submit Foto Check In"-->
+<!--android:layout_margin="8dp"/>-->

@@ -83,6 +83,7 @@ public class CheckOutActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
+            btnFoto.setText("Submit Foto Checkout");
             mediaPath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH);
             //imgLogin.setImageBitmap(BitmapFactory.decodeFile(mediaPath));
             imgLogin.setImageDrawable(getResources().getDrawable(R.drawable.checklist));
@@ -103,7 +104,7 @@ public class CheckOutActivity extends AppCompatActivity {
 
         absen.setUsername(textUsername);
         absen.setTanggalKeluar(getTanggal());
-        absen.setGPS(locationText);
+        absen.setGPSKeluar(locationText);
 
         Gson gson = new Gson();
         String json = gson.toJson(absen);

@@ -106,7 +106,7 @@ public class CheckInActivity extends AppCompatActivity {
 
         absen.setUsername(textUsername);
         absen.setTanggalMasuk(getTanggal());
-        absen.setGPS(locationText);
+        absen.setGPSMasuk(locationText);
 
         Gson gson = new Gson();
         String json = gson.toJson(absen);

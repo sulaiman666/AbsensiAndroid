@@ -15,17 +15,20 @@ public class Absensi {
     private String tanggalMasuk;
     @SerializedName("tanggalKeluar")
     private String tanggalKeluar;
-    @SerializedName("GPS")
-    private String GPS;
+    @SerializedName("GPSMasuk")
+    private String GPSMasuk;
+    @SerializedName("GPSKeluar")
+    private String GPSKeluar;
 
-    public Absensi(long id, String username, String fotoMasuk, String fotoKeluar, String tanggalMasuk, String tanggalKeluar, int jamMasuk, int jamKeluar, String GPS) {
+    public Absensi(long id, String username, String fotoMasuk, String fotoKeluar, String tanggalMasuk, String tanggalKeluar, String GPSMasuk, String GPSKeluar) {
         this.id = id;
         this.username = username;
         this.fotoMasuk = fotoMasuk;
         this.fotoKeluar = fotoKeluar;
         this.tanggalMasuk = tanggalMasuk;
         this.tanggalKeluar = tanggalKeluar;
-        this.GPS = GPS;
+        this.GPSMasuk = GPSMasuk;
+        this.GPSKeluar = GPSKeluar;
     }
 
     public Absensi() {
@@ -79,11 +82,19 @@ public class Absensi {
         this.tanggalKeluar = tanggalKeluar;
     }
 
-    public String getGPS() {
-        return GPS;
+    public String getGPSMasuk() {
+        return GPSMasuk;
     }
 
-    public void setGPS(String GPS) {
-        this.GPS = GPS;
+    public void setGPSMasuk(String GPSMasuk) {
+        this.GPSMasuk = GPSMasuk;
+    }
+
+    public String getGPSKeluar() {
+        return GPSKeluar;
+    }
+
+    public void setGPSKeluar(String GPSKeluar) {
+        this.GPSKeluar = GPSKeluar;
     }
 }

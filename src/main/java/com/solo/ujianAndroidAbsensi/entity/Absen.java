@@ -32,5 +32,7 @@ public class Absen {
 	@Column(length = 100)
 	private String tanggalKeluar;
 	@Column(length = 200)
-	private String GPS;
+	private String GPSMasuk;
+	@Column(length = 200)
+	private String GPSKeluar;
 }

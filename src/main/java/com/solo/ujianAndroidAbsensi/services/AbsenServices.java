@@ -48,17 +48,21 @@ public class AbsenServices implements AbsenServiceInterface{
 					absen.setId(absenTemp.getId());
 					absen.setTanggalMasuk(absenTemp.getTanggalMasuk());
 					absen.setFotoMasuk(absenTemp.getFotoMasuk());
+					absen.setGPSMasuk(absenTemp.getGPSMasuk());
+					
 					this.absenRepo.save(absen);
 					return "Check Out berhasil dilakukan";
 				} else {
 					absen.setTanggalMasuk(absen.getTanggalKeluar());
 					absen.setFotoMasuk(absen.getFotoKeluar());
+					absen.setGPSMasuk(absen.getGPSKeluar());
 					
 					absen.setTanggalKeluar(null);
 					absen.setFotoKeluar(null);
+					absen.setGPSKeluar(null);
 					
 					this.absenRepo.save(absen);
-					return "Anda belum Check In Hari Ini, sehingga anda beru terhitung check in";
+					return "Anda belum Check In Hari Ini, sehingga anda baru terhitung check in";
 				}
 				
 			}
